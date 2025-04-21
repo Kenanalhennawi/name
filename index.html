@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Name Comparison Tool</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+    <h1 class="text-2xl font-bold mb-6">Name Comparison Tool</h1>
+
+    <form
+        id="compareForm"
+        class="grid grid-cols-1 md:grid-cols-1 gap-4 w-full max-w-3xl bg-white p-6 rounded-lg shadow-md mb-8"
+        onsubmit="event.preventDefault(); compareNames();"
+        autocomplete="off"
+    >
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+             <div>
+                 <label for="first1" class="block text-sm font-medium text-gray-700 mb-1">First Name 1</label>
+                 <input
+                    id="first1"
+                    placeholder="First Name 1"
+                    class="p-3 border border-gray-300 rounded-lg w-full"
+                    autocomplete="off"
+                 />
+            </div>
+            <div>
+                <label for="last1" class="block text-sm font-medium text-gray-700 mb-1">Last Name 1</label>
+                <input
+                    id="last1"
+                    placeholder="Last Name 1"
+                    class="p-3 border border-gray-300 rounded-lg w-full"
+                    autocomplete="off"
+                 />
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+             <div>
+                 <label for="first2" class="block text-sm font-medium text-gray-700 mb-1">First Name 2</label>
+                 <input
+                    id="first2"
+                    placeholder="First Name 2"
+                    class="p-3 border border-gray-300 rounded-lg w-full"
+                    autocomplete="off"
+                 />
+             </div>
+             <div>
+                <label for="last2" class="block text-sm font-medium text-gray-700 mb-1">Last Name 2</label>
+                <input
+                    id="last2"
+                    placeholder="Last Name 2"
+                    class="p-3 border border-gray-300 rounded-lg w-full"
+                    autocomplete="off"
+                 />
+            </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-gray-200">
+            <label for="passportImage" class="block text-sm font-medium text-gray-700 mb-1">Upload Passport (for Name Set 1)</label>
+            <div class="flex gap-4 items-center">
+                <input
+                    type="file"
+                    id="passportImage"
+                    accept="image/*"
+                    class="flex-grow p-3 border border-gray-300 rounded-lg"
+                />
+                <button
+                    type="button"
+                    onclick="processImage()"
+                    class="px-5 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 whitespace-nowrap"
+                >
+                    Upload & Extract
+                </button>
+            </div>
+            <div id="loadingIndicator" class="hidden mt-2 text-sm text-gray-600 italic">Processing image...</div>
+        </div>
+
+
+        <div class="flex gap-4 mt-6">
+            <button
+                type="submit"
+                class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex-grow"
+            >
+                Compare Names
+            </button>
+            <button
+                type="button"
+                onclick="clearFields()"
+                class="px-6 py-3 bg-gray-400 text-white rounded-lg hover:bg-gray-500 flex-grow"
+            >
+                Clear All
+            </button>
+        </div>
+    </form>
+
+    <div id="resultsArea" class="w-full max-w-3xl mt-4">
+        <h2 class="text-xl font-semibold mb-2">Comparison Result</h2>
+        <div class="bg-white p-4 border border-gray-300 rounded-lg shadow-md">
+             <div class="whitespace-pre-wrap font-mono text-lg break-words" id="line1"></div>
+             <div class="whitespace-pre-wrap font-mono text-lg break-words mt-1" id="line2"></div>
+             <p id="diffCount" class="mt-3 font-medium text-red-600"></p>
+             <p id="swapInfo" class="mt-1 font-medium swap-note"></p>
+        </div>
+    </div>
+
+    <footer class="mt-8 text-center text-sm text-gray-500">
+        <p>
+            &copy; 2025 Created by Kenan Alhennawi. All Rights Reserved.
+        </p>
+    </footer>
+
+    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+    <script src="app.js"></script>
+</body>
+</html>
