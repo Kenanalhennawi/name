@@ -374,7 +374,15 @@ async function processImage() {
             preprocessedDataUrl,
             'eng', // Use English language model
             {
-                logger: m => console.log(`OCR Status: ${m.status}, Progress: ${(m.progress * 100).toFixed(1)}%`)
+                logger: m => {
+    const ocrStatusDiv = document.getElementById("ocrStatusDisplay");
+    const ocrStatusText = document.getElementById("ocrStatusText");
+    if (ocrStatusDiv && ocrStatusText) {
+        ocrStatusDiv.classList.remove("hidden");
+        ocrStatusText.textContent = `${m.status} (${(m.progress * 100).toFixed(1)}%)`;
+    }
+}
+
             }
         );
 
@@ -386,6 +394,8 @@ async function processImage() {
         console.error("Error during image processing or OCR:", err);
         alert(`An error occurred: ${err.message || 'Unknown error during processing.'} Check console for details.`);
     } finally {
+document.getElementById("ocrStatusDisplay").classList.add("hidden");
+
         loadingIndicator.classList.add("hidden");
         if (uploadButton) uploadButton.disabled = false; // Re-enable button
         fileInput.value = ''; // Clear file input after processing attempt
@@ -625,7 +635,7 @@ function compareNames() {
 
     document.getElementById("diffCount").textContent = `Differences found: ${totalDiffs}`;
     document.getElementById("swapInfo").textContent = swapped
-        ? "(Note: First and Last names were swapped for better match)"
+        ? "(Note: First and Last names were swapped)"
         : '';
 }
 
